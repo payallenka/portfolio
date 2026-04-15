@@ -227,11 +227,11 @@ const App = () => {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8 text-xs font-medium uppercase tracking-[0.2em]">
             <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-white transition-colors">About</a>
-            <a href="#skills" onClick={(e) => scrollToSection(e, 'skills')} className="hover:text-white transition-colors">Skills</a>
-            <a href="#education" onClick={(e) => scrollToSection(e, 'education')} className="hover:text-white transition-colors">Education</a>
             <a href="#experience" onClick={(e) => scrollToSection(e, 'experience')} className="hover:text-white transition-colors">Experience</a>
             <a href="#projects" onClick={(e) => scrollToSection(e, 'projects')} className="hover:text-white transition-colors">Projects</a>
+            <a href="#skills" onClick={(e) => scrollToSection(e, 'skills')} className="hover:text-white transition-colors">Skills</a>
             <a href="#achievements" onClick={(e) => scrollToSection(e, 'achievements')} className="hover:text-white transition-colors">Achievements</a>
+            <a href="#education" onClick={(e) => scrollToSection(e, 'education')} className="hover:text-white transition-colors">Education</a>
             <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="text-emerald-500 hover:text-emerald-400 transition-all active:scale-95">Contact</a>
           </div>
           {/* Hamburger Icon for Mobile */}
@@ -267,11 +267,11 @@ const App = () => {
                 ×
               </button>
               <a href="#about" onClick={e => { scrollToSection(e, 'about'); setNavOpen(false); }} className="hover:text-emerald-400">About</a>
-              <a href="#skills" onClick={e => { scrollToSection(e, 'skills'); setNavOpen(false); }} className="hover:text-emerald-400">Skills</a>
-              <a href="#education" onClick={e => { scrollToSection(e, 'education'); setNavOpen(false); }} className="hover:text-emerald-400">Education</a>
               <a href="#experience" onClick={e => { scrollToSection(e, 'experience'); setNavOpen(false); }} className="hover:text-emerald-400">Experience</a>
               <a href="#projects" onClick={e => { scrollToSection(e, 'projects'); setNavOpen(false); }} className="hover:text-emerald-400">Projects</a>
+              <a href="#skills" onClick={e => { scrollToSection(e, 'skills'); setNavOpen(false); }} className="hover:text-emerald-400">Skills</a>
               <a href="#achievements" onClick={e => { scrollToSection(e, 'achievements'); setNavOpen(false); }} className="hover:text-emerald-400">Achievements</a>
+              <a href="#education" onClick={e => { scrollToSection(e, 'education'); setNavOpen(false); }} className="hover:text-emerald-400">Education</a>
               <a href="#contact" onClick={e => { scrollToSection(e, 'contact'); setNavOpen(false); }} className="text-emerald-500 hover:text-emerald-400">Contact</a>
             </div>
           </>
@@ -367,7 +367,8 @@ const App = () => {
           </div>
         </section>
 
-        {/* Summary */}
+
+        {/* About */}
         <RevealSection id="about" className="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-stone-900 pt-20">
           <div className="lg:col-span-4 text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold">/ Summary</div>
           <div className="lg:col-span-8">
@@ -376,38 +377,11 @@ const App = () => {
           </div>
         </RevealSection>
 
-        {/* Skills */}
-        <RevealSection id="skills" className="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-stone-900 pt-20">
-          <div className="lg:col-span-4 text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold">/ Technical Skills</div>
-          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {skills.map((s, i) => (
-              <div key={i} className="mb-2">
-                <span className="font-semibold text-emerald-400">{s.label}:</span>{' '}
-                <span className="text-stone-300">{s.value}</span>
-              </div>
-            ))}
-          </div>
-        </RevealSection>
-
-        {/* Education */}
-        <RevealSection id="education" className="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-stone-900 pt-20">
-          <div className="lg:col-span-4 text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold">/ Education</div>
-          <div className="lg:col-span-8">
-            <div className="mb-2 text-white font-semibold text-lg">
-              {education.college} <span className="text-stone-400 font-normal">({education.grad})</span>
-            </div>
-            <div className="mb-1 text-stone-300">{education.degree}</div>
-            <div className="mb-1 text-stone-400">{education.cgpa}</div>
-            <div className="mb-1 text-stone-400">{education.entrance}</div>
-          </div>
-        </RevealSection>
-
-        {/* Work Gallery */}
+        {/* Experience */}
         <section className="mb-48">
           <RevealSection id="experience" className="flex items-center justify-between mb-20">
             <h2 className="text-4xl font-light text-white tracking-tight">Professional Experience</h2>
           </RevealSection>
-
           <div className="space-y-32">
             {experience.map((exp, idx) => (
               <RevealSection key={idx} delay={idx * 150} className="group relative">
@@ -446,7 +420,6 @@ const App = () => {
           <RevealSection id="projects" className="flex items-center justify-between mb-20">
             <h2 className="text-4xl font-light text-white tracking-tight">Technical Projects</h2>
           </RevealSection>
-
           <div className="space-y-32">
             {projects.map((proj, idx) => (
               <RevealSection key={idx} delay={idx * 200} className="group relative">
@@ -477,7 +450,20 @@ const App = () => {
           </div>
         </section>
 
-        {/* Spotlight / Achievements */}
+        {/* Skills */}
+        <RevealSection id="skills" className="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-stone-900 pt-20">
+          <div className="lg:col-span-4 text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold">/ Technical Skills</div>
+          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {skills.map((s, i) => (
+              <div key={i} className="mb-2">
+                <span className="font-semibold text-emerald-400">{s.label}:</span>{' '}
+                <span className="text-stone-300">{s.value}</span>
+              </div>
+            ))}
+          </div>
+        </RevealSection>
+
+        {/* Achievements */}
         <section className="mb-48 grid grid-cols-1 lg:grid-cols-2 gap-12">
           <RevealSection
             id="achievements"
@@ -535,6 +521,19 @@ const App = () => {
             </p>
           </RevealSection>
         </section>
+
+        {/* Education */}
+        <RevealSection id="education" className="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-stone-900 pt-20">
+          <div className="lg:col-span-4 text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold">/ Education</div>
+          <div className="lg:col-span-8">
+            <div className="mb-2 text-white font-semibold text-lg">
+              {education.college} <span className="text-stone-400 font-normal">({education.grad})</span>
+            </div>
+            <div className="mb-1 text-stone-300">{education.degree}</div>
+            <div className="mb-1 text-stone-400">{education.cgpa}</div>
+            <div className="mb-1 text-stone-400">{education.entrance}</div>
+          </div>
+        </RevealSection>
 
         {/* Contact CTA */}
         <RevealSection id="contact" className="text-center py-32 border-t border-stone-900">
