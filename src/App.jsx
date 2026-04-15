@@ -61,6 +61,7 @@ const App = () => {
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -223,18 +224,58 @@ const App = () => {
           >
             payal<span className="text-emerald-500">.</span>lenka
           </div>
-          <div className="flex items-center space-x-8 text-xs font-medium uppercase tracking-[0.2em]">
-            <a href="#work" onClick={e => scrollToSection(e, 'work')} className="hover:text-white transition-colors">
-              Work
-            </a>
-            <a href="#about" onClick={e => scrollToSection(e, 'about')} className="hover:text-white transition-colors">
-              About
-            </a>
-            <button onClick={copyEmail} className="text-emerald-500 hover:text-emerald-400 transition-all active:scale-95">
-              {copied ? 'Copied' : 'Contact'}
-            </button>
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center space-x-8 text-xs font-medium uppercase tracking-[0.2em]">
+            <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-white transition-colors">About</a>
+            <a href="#skills" onClick={(e) => scrollToSection(e, 'skills')} className="hover:text-white transition-colors">Skills</a>
+            <a href="#education" onClick={(e) => scrollToSection(e, 'education')} className="hover:text-white transition-colors">Education</a>
+            <a href="#experience" onClick={(e) => scrollToSection(e, 'experience')} className="hover:text-white transition-colors">Experience</a>
+            <a href="#projects" onClick={(e) => scrollToSection(e, 'projects')} className="hover:text-white transition-colors">Projects</a>
+            <a href="#achievements" onClick={(e) => scrollToSection(e, 'achievements')} className="hover:text-white transition-colors">Achievements</a>
+            <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="text-emerald-500 hover:text-emerald-400 transition-all active:scale-95">Contact</a>
           </div>
+          {/* Hamburger Icon for Mobile */}
+          <button
+            className="md:hidden flex flex-col justify-center items-center w-10 h-10 focus:outline-none"
+            aria-label="Open navigation menu"
+            onClick={() => setNavOpen(!navOpen)}
+          >
+            <span className={`block w-6 h-0.5 bg-white mb-1.5 transition-all duration-300 ${navOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+            <span className={`block w-6 h-0.5 bg-white mb-1.5 transition-all duration-300 ${navOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${navOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+          </button>
         </div>
+        {/* Mobile Nav Overlay */}
+        {navOpen && (
+          <>
+            {/* Overlay */}
+            <div
+              className="fixed inset-0 z-40 bg-black/40 md:hidden"
+              onClick={() => setNavOpen(false)}
+              aria-label="Close navigation overlay"
+            ></div>
+            {/* Side Drawer */}
+            <div
+              className={`fixed top-0 left-0 z-50 h-full w-4/5 max-w-xs bg-[#0a0a0a] shadow-2xl flex flex-col pt-12 px-8 space-y-8 text-lg font-semibold uppercase tracking-widest text-white md:hidden transition-transform duration-300 ${navOpen ? 'translate-x-0' : '-translate-x-full'}`}
+              style={{ minHeight: '100vh' }}
+            >
+              <button
+                onClick={() => setNavOpen(false)}
+                className="absolute top-6 right-6 text-2xl text-stone-400 hover:text-emerald-400 focus:outline-none"
+                aria-label="Close menu"
+              >
+                ×
+              </button>
+              <a href="#about" onClick={e => { scrollToSection(e, 'about'); setNavOpen(false); }} className="hover:text-emerald-400">About</a>
+              <a href="#skills" onClick={e => { scrollToSection(e, 'skills'); setNavOpen(false); }} className="hover:text-emerald-400">Skills</a>
+              <a href="#education" onClick={e => { scrollToSection(e, 'education'); setNavOpen(false); }} className="hover:text-emerald-400">Education</a>
+              <a href="#experience" onClick={e => { scrollToSection(e, 'experience'); setNavOpen(false); }} className="hover:text-emerald-400">Experience</a>
+              <a href="#projects" onClick={e => { scrollToSection(e, 'projects'); setNavOpen(false); }} className="hover:text-emerald-400">Projects</a>
+              <a href="#achievements" onClick={e => { scrollToSection(e, 'achievements'); setNavOpen(false); }} className="hover:text-emerald-400">Achievements</a>
+              <a href="#contact" onClick={e => { scrollToSection(e, 'contact'); setNavOpen(false); }} className="text-emerald-500 hover:text-emerald-400">Contact</a>
+            </div>
+          </>
+        )}
       </nav>
 
       <main id="top" className="max-w-6xl mx-auto px-6 pt-48 pb-32 relative z-10">
@@ -362,8 +403,8 @@ const App = () => {
         </RevealSection>
 
         {/* Work Gallery */}
-        <section id="work" className="mb-48">
-          <RevealSection className="flex items-center justify-between mb-20">
+        <section className="mb-48">
+          <RevealSection id="experience" className="flex items-center justify-between mb-20">
             <h2 className="text-4xl font-light text-white tracking-tight">Professional Experience</h2>
           </RevealSection>
 
@@ -402,7 +443,7 @@ const App = () => {
 
         {/* Projects */}
         <section className="mb-48">
-          <RevealSection className="flex items-center justify-between mb-20">
+          <RevealSection id="projects" className="flex items-center justify-between mb-20">
             <h2 className="text-4xl font-light text-white tracking-tight">Technical Projects</h2>
           </RevealSection>
 
@@ -436,21 +477,18 @@ const App = () => {
           </div>
         </section>
 
-        {/* Spotlight */}
+        {/* Spotlight / Achievements */}
         <section className="mb-48 grid grid-cols-1 lg:grid-cols-2 gap-12">
           <RevealSection
+            id="achievements"
             delay={0}
             className="p-12 bg-white/[0.02] border border-stone-900 rounded-[2.5rem] hover:border-emerald-500/20 hover:bg-emerald-500/[0.02] transition-all duration-700 group hover:-translate-y-2"
           >
             <Award className="text-emerald-500 mb-6 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500" size={32} />
-            <h3 className="text-2xl text-white font-light mb-4 tracking-tight italic">Elite Mentorship</h3>
+            <h3 className="text-2xl text-white font-light mb-4 tracking-tight italic">Google Student Launchpad</h3>
             <p className="text-stone-400 leading-relaxed mb-6 font-light">
-              Selected for the <span className="text-white">Google Student Launchpad</span>. A competitive, invite-only program where I received
-              1-on-1 guidance from Google engineers on distributed systems and algorithm design.
+              Selected for Google’s invite-only mentorship program, receiving guidance from Google engineers on DSA, problem solving, and interview preparation.
             </p>
-            <div className="text-xs uppercase tracking-widest text-stone-600 font-bold border-l border-emerald-500/50 pl-4 py-1">
-              Selected from thousands of applicants
-            </div>
           </RevealSection>
 
           <RevealSection
@@ -458,14 +496,43 @@ const App = () => {
             className="p-12 bg-white/[0.02] border border-stone-900 rounded-[2.5rem] hover:border-emerald-500/20 hover:bg-emerald-500/[0.02] transition-all duration-700 group hover:-translate-y-2"
           >
             <Cpu className="text-emerald-500 mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500" size={32} />
-            <h3 className="text-2xl text-white font-light mb-4 tracking-tight italic">Research & Patents</h3>
+            <h3 className="text-2xl text-white font-light mb-4 tracking-tight italic">URF Research Project — Knee Health Analyzer</h3>
             <p className="text-stone-400 leading-relaxed mb-6 font-light">
-              Contributor to <span className="text-white">patent-filed AI diagnostics</span> for healthcare (Knee Health Analyzer). Secured research
-              funding for building intelligent system architectures at the college level.
+              Secured <span className="font-semibold">₹25K research funding</span> and contributed to a <span className="font-semibold">patent-filed AI diagnostic solution</span> for knee health assessment.
             </p>
-            <div className="text-xs uppercase tracking-widest text-stone-600 font-bold border-l border-emerald-500/50 pl-4 py-1">
-              25K Research Grant Recipient
-            </div>
+          </RevealSection>
+
+          <RevealSection
+            delay={400}
+            className="p-12 bg-white/[0.02] border border-stone-900 rounded-[2.5rem] hover:border-emerald-500/20 hover:bg-emerald-500/[0.02] transition-all duration-700 group hover:-translate-y-2"
+          >
+            <Award className="text-emerald-500 mb-6 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500" size={32} />
+            <h3 className="text-2xl text-white font-light mb-4 tracking-tight italic">Vend-O-Print Startup</h3>
+            <p className="text-stone-400 leading-relaxed mb-6 font-light">
+              Core contributor to a college-backed startup, <span className="font-semibold">ranked Top 27 in Manthan'24</span>, where the solution progressed to a <span className="font-semibold">college-held patent filing</span>.
+            </p>
+          </RevealSection>
+
+          <RevealSection
+            delay={600}
+            className="p-12 bg-white/[0.02] border border-stone-900 rounded-[2.5rem] hover:border-emerald-500/20 hover:bg-emerald-500/[0.02] transition-all duration-700 group hover:-translate-y-2"
+          >
+            <User className="text-emerald-500 mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500" size={32} />
+            <h3 className="text-2xl text-white font-light mb-4 tracking-tight italic">Leadership</h3>
+            <p className="text-stone-400 leading-relaxed mb-6 font-light">
+              Served as <span className="font-semibold">Ex-GDSC Lead and RNSIT CTSoc IEEE Chair</span>, leading <span className="font-semibold">40+ members</span> and organizing <span className="font-semibold">10+ technical workshops and community events</span>.
+            </p>
+          </RevealSection>
+
+          <RevealSection
+            delay={800}
+            className="p-12 bg-white/[0.02] border border-stone-900 rounded-[2.5rem] hover:border-emerald-500/20 hover:bg-emerald-500/[0.02] transition-all duration-700 group hover:-translate-y-2"
+          >
+            <Cpu className="text-emerald-500 mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500" size={32} />
+            <h3 className="text-2xl text-white font-light mb-4 tracking-tight italic">Problem Solving</h3>
+            <p className="text-stone-400 leading-relaxed mb-6 font-light">
+              Solved <span className="font-semibold">250+ LeetCode problems</span>, achieved <span className="font-semibold">3 star on CodeChef</span>, and secured <span className="font-semibold">1st place in a college coding contest (2024)</span> by solving a <span className="font-semibold">story-based dynamic programming problem</span>.
+            </p>
           </RevealSection>
         </section>
 
